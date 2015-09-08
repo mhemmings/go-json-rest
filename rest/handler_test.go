@@ -59,7 +59,7 @@ func TestHandler(t *testing.T) {
 	recorded = test.RunRequest(t, &handler, request)
 	recorded.CodeIs(415)
 	recorded.ContentTypeIsJson()
-	recorded.BodyIs(`{"Error":"Bad Content-Type or charset, expected 'application/json'"}`)
+	recorded.BodyIs(`{"error":"Bad Content-Type or charset, expected 'application/json'"}`)
 
 	// broken Content-Type post resource
 	request = test.MakeSimpleRequest("POST", "http://1.2.3.4/r/123", &map[string]string{"Test": "Test"})
@@ -67,7 +67,7 @@ func TestHandler(t *testing.T) {
 	recorded = test.RunRequest(t, &handler, request)
 	recorded.CodeIs(415)
 	recorded.ContentTypeIsJson()
-	recorded.BodyIs(`{"Error":"Bad Content-Type or charset, expected 'application/json'"}`)
+	recorded.BodyIs(`{"error":"Bad Content-Type or charset, expected 'application/json'"}`)
 
 	// Content-Type post resource with charset
 	request = test.MakeSimpleRequest("POST", "http://1.2.3.4/r/123", &map[string]string{"Test": "Test"})
@@ -81,29 +81,29 @@ func TestHandler(t *testing.T) {
 	recorded = test.RunRequest(t, &handler, test.MakeSimpleRequest("DELETE", "http://1.2.3.4/r/123", nil))
 	recorded.CodeIs(405)
 	recorded.ContentTypeIsJson()
-	recorded.BodyIs(`{"Error":"Method not allowed"}`)
+	recorded.BodyIs(`{"error":"Method not allowed"}`)
 
 	// auto 404 on undefined route (wrong path)
 	recorded = test.RunRequest(t, &handler, test.MakeSimpleRequest("GET", "http://1.2.3.4/s/123", nil))
 	recorded.CodeIs(404)
 	recorded.ContentTypeIsJson()
-	recorded.BodyIs(`{"Error":"Resource not found"}`)
+	recorded.BodyIs(`{"error":"Resource not found"}`)
 
 	// auto 500 on unhandled userecorder error
 	recorded = test.RunRequest(t, &handler, test.MakeSimpleRequest("GET", "http://1.2.3.4/auto-fails", nil))
 	recorded.CodeIs(500)
 	recorded.ContentTypeIsJson()
-	recorded.BodyIs(`{"Error":"Internal Server Error"}`)
+	recorded.BodyIs(`{"error":"Internal Server Error"}`)
 
 	// userecorder error
 	recorded = test.RunRequest(t, &handler, test.MakeSimpleRequest("GET", "http://1.2.3.4/user-error", nil))
 	recorded.CodeIs(500)
 	recorded.ContentTypeIsJson()
-	recorded.BodyIs(`{"Error":"My error"}`)
+	recorded.BodyIs(`{"error":"My error"}`)
 
 	// userecorder notfound
 	recorded = test.RunRequest(t, &handler, test.MakeSimpleRequest("GET", "http://1.2.3.4/user-notfound", nil))
 	recorded.CodeIs(404)
 	recorded.ContentTypeIsJson()
-	recorded.BodyIs(`{"Error":"Resource not found"}`)
+	recorded.BodyIs(`{"error":"Resource not found"}`)
 }

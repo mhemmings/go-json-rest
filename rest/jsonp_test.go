@@ -43,5 +43,5 @@ func TestJsonpMiddleware(t *testing.T) {
 	recorded.HeaderIs("Content-Type", "text/javascript")
 	recorded.HeaderIs("Content-Disposition", "filename=f.txt")
 	recorded.HeaderIs("X-Content-Type-Options", "nosniff")
-	recorded.BodyIs("/**/parseResponse({\"Error\":\"jsonp error\"})")
+	recorded.BodyIs("/**/parseResponse({\"error\":\"jsonp error\"})")
 }

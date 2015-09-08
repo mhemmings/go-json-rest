@@ -37,7 +37,7 @@ func TestRecoverMiddleware(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if payload["Error"] == "" {
+	if payload["error"] == "" {
 		t.Errorf("Expected an error message, got: %v", payload)
 	}
 }

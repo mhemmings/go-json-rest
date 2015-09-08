@@ -34,7 +34,7 @@ type ResponseWriter interface {
 // http.Error(w, "error message", code)
 func Error(w ResponseWriter, error string, code int) {
 	w.WriteHeader(code)
-	err := w.WriteJson(map[string]string{"Error": error})
+	err := w.WriteJson(map[string]string{"error": error})
 	if err != nil {
 		panic(err)
 	}
