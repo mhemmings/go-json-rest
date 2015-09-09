@@ -73,17 +73,17 @@ func (mw *StatusMiddleware) MiddlewareFunc(h HandlerFunc) HandlerFunc {
 //       "AverageResponseTimeSec": 0.00026214
 //     }
 type Status struct {
-	Pid                    int
-	UpTime                 string
-	UpTimeSec              float64
-	Time                   string
-	TimeUnix               int64
-	StatusCodeCount        map[string]int
-	TotalCount             int
-	TotalResponseTime      string
-	TotalResponseTimeSec   float64
-	AverageResponseTime    string
-	AverageResponseTimeSec float64
+	Pid                    int            `json:"pid"`
+	UpTime                 string         `json:"upTime"`
+	UpTimeSec              float64        `json:"upTimeSec"`
+	Time                   string         `json:"time"`
+	TimeUnix               int64          `json:"timeUnix"`
+	StatusCodeCount        map[string]int `json:"statusCodeCount"`
+	TotalCount             int            `json:"totalCount"`
+	TotalResponseTime      string         `json:"totalResponseTime"`
+	TotalResponseTimeSec   float64        `json:"totalResponseTimeSec"`
+	AverageResponseTime    string         `json:"averageResponseTime"`
+	AverageResponseTimeSec float64        `json:"averageResponseTimeSec"`
 }
 
 // GetStatus computes and returns a Status object based on the request informations accumulated
